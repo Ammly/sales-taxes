@@ -14,4 +14,4 @@ sales_taxes take home exercise
 
 ## Example (basket #1)
 
-![Basket #1 Example](basket#1.png)
+![Basket #1 Example](basket%231.png)
