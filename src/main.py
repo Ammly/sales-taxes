@@ -24,33 +24,34 @@ Total: 29.83
 
 """
 
+
 # Rount amount to 3 decimal places
 def round_up(amount):
     return format(amount, '.2f')
+
 
 # Calculate Total taxe amount (sales_tax + import_duty)
 def total_item_taxes(item_price, imported=False, tax_exempt=False):
     SALES_TAX = 0.1
     IMPORT_DUTY = .05
     import_duty = 0.0
-    sales_tax = float(item_price) * \
-        SALES_TAX if not tax_exempt else 0.0
+    sales_tax = float(item_price) * SALES_TAX if not tax_exempt else 0.0
 
     if imported:
         import_duty = item_price * IMPORT_DUTY
 
     return float(sales_tax + import_duty)
 
+
 # Calculate Total item cost (ItemPrice + tax)
 def total_item_cost(item_price, quantity, imported=False, tax_exempt=False):
-    total_item_cost = quantity * \
-        (item_price + total_item_taxes(item_price, imported, tax_exempt))
+    total_item_cost = quantity * (item_price + total_item_taxes(item_price, imported, tax_exempt))
 
     return round_up(total_item_cost)
 
+
 # Print the Receipt
 def displayReceipt(basket):
-
     total_sales_taxes = 0.0
     total_amount = 0.0
 
@@ -64,7 +65,8 @@ def displayReceipt(basket):
         print(f'{quantity} {item_name}: {item_price}')
 
     print(f'Sales Taxes: {round_up(total_sales_taxes)}')
-    print(f'Toatal: {round_up(total_amount)}')
+    print(f'Total: {round_up(total_amount)}')
+
 
 # @TODO refactor Yes/No questions to a function
 def check_response(response):
@@ -78,12 +80,11 @@ def check_response(response):
 
 
 def main():
-
     basket = list()
     imported = False
     tax_exempt = False
 
-    while (True):
+    while True:
         tax_exempt = False
         item_name = input('Enter the Item name: ')
         quantity = int(input('Enter the number of items: '))
@@ -106,7 +107,7 @@ def main():
         basket.append(item)
 
         more_items = input('Add more items? [Y/n]')
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+
         if more_items in list(map(str.lower, ["N", "NO"])):
             break
         elif more_items in list(map(str.lower, ["Y", "YES"])):
