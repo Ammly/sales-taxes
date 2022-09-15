@@ -62,8 +62,8 @@ def displayReceipt(basket):
 
         print(f'{quantity} {item_name}: {item_price}')
 
-    print(f'Sales Taxes: {total_sales_taxes}')
-    print(f'Toatal: {total_amount}')
+    print(f'Sales Taxes: {round_up(total_sales_taxes)}')
+    print(f'Toatal: {round_up(total_amount)}')
 
 
 def check_response(response):
