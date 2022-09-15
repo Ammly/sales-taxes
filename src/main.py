@@ -24,10 +24,11 @@ Total: 29.83
 
 """
 
+# Rount amount to 3 decimal places
 def round_up(amount):
     return format(amount, '.2f')
 
-
+# Calculate Total taxe amount (sales_tax + import_duty)
 def total_item_taxes(item_price, imported=False, tax_exempt=False):
     SALES_TAX = 0.1
     IMPORT_DUTY = .05
@@ -40,14 +41,14 @@ def total_item_taxes(item_price, imported=False, tax_exempt=False):
 
     return float(sales_tax + import_duty)
 
-
+# Calculate Total item cost (ItemPrice + tax)
 def total_item_cost(item_price, quantity, imported=False, tax_exempt=False):
     total_item_cost = quantity * \
         (item_price + total_item_taxes(item_price, imported, tax_exempt))
 
     return round_up(total_item_cost)
 
-
+# Print the Receipt
 def displayReceipt(basket):
 
     total_sales_taxes = 0.0
@@ -65,7 +66,7 @@ def displayReceipt(basket):
     print(f'Sales Taxes: {round_up(total_sales_taxes)}')
     print(f'Toatal: {round_up(total_amount)}')
 
-
+# @TODO refactor Yes/No questions to a function
 def check_response(response):
     if response in list(map(str.lower, ["N", "NO"])):
         return False
