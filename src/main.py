@@ -24,6 +24,8 @@ Total: 29.83
 
 """
 
+from utils import *
+
 
 # Rount amount to 3 decimal places
 def round_up(amount):
@@ -31,7 +33,7 @@ def round_up(amount):
 
 
 # Calculate Total taxe amount (sales_tax + import_duty)
-def total_item_taxes(item_price, imported=False, tax_exempt=False):
+def total_item_tax(item_price, imported=False, tax_exempt=False):
     SALES_TAX = 0.1
     IMPORT_DUTY = .05
     import_duty = 0.0
@@ -45,9 +47,7 @@ def total_item_taxes(item_price, imported=False, tax_exempt=False):
 
 # Calculate Total item cost (ItemPrice + tax)
 def total_item_cost(item_price, quantity, imported=False, tax_exempt=False):
-    total_item_cost = quantity * (item_price + total_item_taxes(item_price, imported, tax_exempt))
-
-    return round_up(total_item_cost)
+    return round_up(quantity * (item_price + total_item_tax(item_price, imported, tax_exempt)))
 
 
 # Print the Receipt
@@ -57,7 +57,7 @@ def display_receipt(basket):
 
     for quantity, item_name, price, imported, tax_exempt in basket:
         item_price = total_item_cost(price, quantity, imported, tax_exempt)
-        sales_tax = total_item_taxes(item_price, imported, tax_exempt)
+        sales_tax = total_item_tax(item_price, imported, tax_exempt)
 
         total_sales_taxes = float(total_sales_taxes) + float(sales_tax)
         total_amount = float(total_amount) + float(item_price)
@@ -68,37 +68,6 @@ def display_receipt(basket):
     print(f'Total: {round_up(total_amount)}')
 
 
-def check_add_more_items():
-    more_items = input('Add more items? [Y/n]')
-    if more_items in list(map(str.lower, ["N", "NO"])):
-        return False
-    elif more_items in list(map(str.lower, ["Y", "YES"])):
-        return True
-    else:
-        print('Please enter a valid input.')
-        check_add_more_items()
-
-
-def check_category(tax_exempt):
-    category = int(input(
-        'Select Category: \n 1. Books \n 2. Food \n 3. Medical \n 4. Other \n'))
-    if category in [1, 2, 3]:
-        tax_exempt = True
-    return tax_exempt
-
-
-def check_imported(imported):
-    item_imported = input('Is the Item Imported? [Y/n]: ')
-    if item_imported in list(map(str.lower, ["N", "NO"])):
-        imported = False
-    elif item_imported in list(map(str.lower, ["Y", "YES"])):
-        imported = True
-    else:
-        print('Please enter a valid input.')
-        check_imported(imported)
-    return imported
-
-
 def main():
     basket = list()
     imported = False
@@ -107,8 +76,8 @@ def main():
     while True:
         tax_exempt = False
         item_name = input('Enter the Item name: ')
-        quantity = int(input('Enter the number of items: '))
-        price = float(input('Enter the price of the purchase: '))
+        quantity = get_int('Enter the number of items: ')
+        price = get_float('Enter the price of the purchase: ')
         # Category [books,food, and medical products]
         tax_exempt = check_category(tax_exempt)
 
@@ -117,7 +86,7 @@ def main():
         item = (quantity, item_name, price, imported, tax_exempt)
         basket.append(item)
 
-        if not check_add_more_items():
+        if not check_add_item():
             break
         else:
             continue
