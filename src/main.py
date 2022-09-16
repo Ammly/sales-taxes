@@ -38,7 +38,7 @@ def total_item_taxes(item_price, imported=False, tax_exempt=False):
     sales_tax = float(item_price) * SALES_TAX if not tax_exempt else 0.0
 
     if imported:
-        import_duty = item_price * IMPORT_DUTY
+        import_duty = float(item_price) * IMPORT_DUTY
 
     return float(sales_tax + import_duty)
 
@@ -51,7 +51,7 @@ def total_item_cost(item_price, quantity, imported=False, tax_exempt=False):
 
 
 # Print the Receipt
-def displayReceipt(basket):
+def display_receipt(basket):
     total_sales_taxes = 0.0
     total_amount = 0.0
 
@@ -117,7 +117,7 @@ def main():
 
     # print(basket)
 
-    displayReceipt(basket)
+    display_receipt(basket)
 
 
 if __name__ == '__main__':
