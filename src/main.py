@@ -68,15 +68,35 @@ def display_receipt(basket):
     print(f'Total: {round_up(total_amount)}')
 
 
-# @TODO refactor Yes/No questions to a function
-def check_response(response):
-    if response in list(map(str.lower, ["N", "NO"])):
+def check_add_more_items():
+    more_items = input('Add more items? [Y/n]')
+    if more_items in list(map(str.lower, ["N", "NO"])):
         return False
-    elif response in list(map(str.lower, ["Y", "YES"])):
+    elif more_items in list(map(str.lower, ["Y", "YES"])):
         return True
     else:
-        print('Please enter a valid input [Y/n]')
-        return check_response()
+        print('Please enter a valid input.')
+        check_add_more_items()
+
+
+def check_category(tax_exempt):
+    category = int(input(
+        'Select Category: \n 1. Books \n 2. Food \n 3. Medical \n 4. Other \n'))
+    if category in [1, 2, 3]:
+        tax_exempt = True
+    return tax_exempt
+
+
+def check_imported(imported):
+    item_imported = input('Is the Item Imported? [Y/n]: ')
+    if item_imported in list(map(str.lower, ["N", "NO"])):
+        imported = False
+    elif item_imported in list(map(str.lower, ["Y", "YES"])):
+        imported = True
+    else:
+        print('Please enter a valid input.')
+        check_imported(imported)
+    return imported
 
 
 def main():
@@ -90,30 +110,17 @@ def main():
         quantity = int(input('Enter the number of items: '))
         price = float(input('Enter the price of the purchase: '))
         # Category [books,food, and medical products]
-        category = int(input(
-            'Select Category: \n 1. Books \n 2. Food \n 3. Medical \n 4. Other \n'))
-        if category in [1, 2, 3]:
-            tax_exempt = True
+        tax_exempt = check_category(tax_exempt)
 
-        item_imported = input('Is the Item Imported? [Y/n]: ')
-        if item_imported in list(map(str.lower, ["N", "NO"])):
-            imported = False
-        elif item_imported in list(map(str.lower, ["Y", "YES"])):
-            imported = True
-        else:
-            print('Please enter a valid input. Is the Item Imported? [Y/n]')
+        imported = check_imported(imported)
 
         item = (quantity, item_name, price, imported, tax_exempt)
         basket.append(item)
 
-        more_items = input('Add more items? [Y/n]')
-
-        if more_items in list(map(str.lower, ["N", "NO"])):
+        if not check_add_more_items():
             break
-        elif more_items in list(map(str.lower, ["Y", "YES"])):
-            continue
         else:
-            print('Please enter a valid input. Add more items? [Y/n]')
+            continue
 
     # print(basket)
 
