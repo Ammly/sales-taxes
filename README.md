@@ -8,9 +8,26 @@ sales_taxes take home exercise
 
 ## Instructions
 
-1. Clone this repo ` gh repo clone Ammly/sales-taxes `
-2. Change in to that directory ` cd sales-taxes `
-3. Run the program ` python src/main.py ` and follow the prompts
+1. Clone this repo 
+```shell 
+gh repo clone Ammly/sales-taxes
+```
+2. Change in to that directory
+```shell
+cd sales-taxes/src
+```
+3. Run the program and follow the prompts
+```shell
+python main.py
+```
+### Tests
+
+Run Unit Tests
+```shell
+cd sales-taxes/src
+
+python -m unittest test_main.py
+```
 
 ## Example (basket #1)
 
