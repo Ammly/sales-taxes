@@ -27,12 +27,12 @@ Total: 29.83
 from utils import *
 
 
-# Rount amount to 3 decimal places
+# Round amount to 3 decimal places
 def round_up(amount):
     return format(amount, '.2f')
 
 
-# Calculate Total taxe amount (sales_tax + import_duty)
+# Calculate Total tax amount (sales_tax + import_duty)
 def total_item_tax(item_price, imported=False, tax_exempt=False):
     SALES_TAX = 0.1
     IMPORT_DUTY = .05
@@ -54,6 +54,7 @@ def total_item_cost(item_price, quantity, imported=False, tax_exempt=False):
 def display_receipt(basket):
     total_sales_taxes = 0.0
     total_amount = 0.0
+    receipt: str = ""
 
     for quantity, item_name, price, imported, tax_exempt in basket:
         item_price = total_item_cost(price, quantity, imported, tax_exempt)
@@ -62,16 +63,21 @@ def display_receipt(basket):
         total_sales_taxes = float(total_sales_taxes) + float(sales_tax)
         total_amount = float(total_amount) + float(item_price)
 
-        print(f'{quantity} {item_name}: {item_price}')
+        # print(f'{quantity} {item_name}: {item_price}')
+        receipt += f'\n{quantity} {item_name}: {item_price} \n'
 
-    print(f'Sales Taxes: {round_up(total_sales_taxes)}')
-    print(f'Total: {round_up(total_amount)}')
+    # print(f'Sales Taxes: {round_up(total_sales_taxes)}')
+    receipt += f'Sales Taxes: {round_up(total_sales_taxes)} \n'
+
+    # print(f'Total: {round_up(total_amount)}')
+    receipt += f'Total: {round_up(total_amount)} \n'
+    
+    return receipt
 
 
 def main():
     basket = list()
     imported = False
-    tax_exempt = False
 
     while True:
         tax_exempt = False
@@ -93,7 +99,7 @@ def main():
 
     # print(basket)
 
-    display_receipt(basket)
+    print(display_receipt(basket))
 
 
 if __name__ == '__main__':
