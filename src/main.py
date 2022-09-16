@@ -63,13 +63,10 @@ def display_receipt(basket):
         total_sales_taxes = float(total_sales_taxes) + float(sales_tax)
         total_amount = float(total_amount) + float(item_price)
 
-        # print(f'{quantity} {item_name}: {item_price}')
         receipt += f'\n{quantity} {item_name}: {item_price} \n'
 
-    # print(f'Sales Taxes: {round_up(total_sales_taxes)}')
     receipt += f'Sales Taxes: {round_up(total_sales_taxes)} \n'
 
-    # print(f'Total: {round_up(total_amount)}')
     receipt += f'Total: {round_up(total_amount)} \n'
     
     return receipt
@@ -84,12 +81,10 @@ def main():
         item_name = input('Enter the Item name: ')
         quantity = get_int('Enter the number of items: ')
         price = get_float('Enter the price of the purchase: ')
-        # Category [books,food, and medical products]
         tax_exempt = check_category(tax_exempt)
+        imported = check_imported()
 
-        imported = check_imported(imported)
-
-        item = (quantity, item_name, price, imported, tax_exempt)
+        item = [quantity, item_name, price, imported, tax_exempt]
         basket.append(item)
 
         if not check_add_item():

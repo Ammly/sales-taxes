@@ -17,7 +17,7 @@ def check_category(tax_exempt):
     return tax_exempt
 
 
-def check_imported(imported):
+def check_imported():
     item_imported: str = input('Is the Item Imported? [Y/n]: ')
     if item_imported in list(map(str.lower, ["N", "NO"])):
         imported = False
@@ -25,7 +25,7 @@ def check_imported(imported):
         imported = True
     else:
         print('Please enter a valid input.')
-        check_imported(imported)
+        check_imported()
     return imported
 
 
